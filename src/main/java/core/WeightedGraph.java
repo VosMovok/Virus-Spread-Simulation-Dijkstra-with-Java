@@ -1,25 +1,36 @@
 package core;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.LinkedList;
 
 public class WeightedGraph {
-    private HashMap<String, List<Edge>> net;
+    private LinkedList<Graph> net;
 
     public WeightedGraph() {
-        net = new HashMap<>();
+        net = new LinkedList<>();
     }
 
     public void addVertex(String vertex) {
-        if (!net.containsKey(vertex)) {
-            net.put(vertex, new ArrayList<>());
+        for(Graph Checkvertex : net) {
+            if (!(Checkvertex.name == vertex)) {
+                net.add(new Graph(vertex, new LinkedList<>()));
+            }
         }
+
     }
 
     public boolean addEdge(String vertex1, String vertex2, int weight) {
-        List<Edge> edges1 = net.get(vertex1);
-        List<Edge> edges2 = net.get(vertex2);
+        LinkedList<Edge> edges1 = null;
+        LinkedList<Edge> edges2 = null;
+        for(Graph Checkvertex : net) {
+            if (Checkvertex.name == vertex1) {
+                edges1 = Checkvertex.edges;
+            }
+        }
+        for(Graph Checkvertex : net) {
+            if (Checkvertex.name == vertex2) {
+                edges2 = Checkvertex.edges;
+            }
+        }
         if (edges1 == null || edges2 == null) {
             return false;
         }
