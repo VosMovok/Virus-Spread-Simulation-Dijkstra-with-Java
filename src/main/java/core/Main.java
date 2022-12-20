@@ -1,3 +1,5 @@
+package core;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -78,7 +80,7 @@ public class Main {
          * | amount of days passed |
          * | |
          */
-        Path path = dijkstra(graph, population.get(0), population.get(population.size() - 1));
+        Path path = Dijkstra.dijkstra(graph.net, population.get(0), population.get(population.size() - 1));
         System.out.println("Final path " + path.finalPath + ", days passed " + path.totalDistance);
 
         // ask user if they want to convert data for plotting
@@ -86,26 +88,10 @@ public class Main {
         System.out.print("\nDo you want to make a cleaner version of the data for plotting? [y/n] ");
         String answer = scanner.nextLine();
         if (answer.equals("y")) {
-            convertDataForPlotting();
+            ConvertDataForPlotting.convertDataForPlotting();
             System.out.println("Data successfully polished.");
         } else {
             System.out.println("if you want to plot make sure to have the right format!");
-        }
-
-        // write result to CSV file
-        try {
-            File file = new File("data/result.csv");
-            FileOutputStream fos = new FileOutputStream(file, true);
-            OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
-            Writer writer = new BufferedWriter(osw);
-            BeanToCsv<Result> beanToCsv = new StatefulBeanToCsvBuilder<Result>(writer)
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER).build();
-            Result result = new Result(path.finalPath, path.totalDistance);
-            beanToCsv.write(result);
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing CSV file.");
-            e.printStackTrace();
         }
     }
 }

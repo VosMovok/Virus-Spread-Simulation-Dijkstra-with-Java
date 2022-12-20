@@ -1,3 +1,5 @@
+package core;
+
 public class Result {
     private String finalPath;
     private int totalDistance;

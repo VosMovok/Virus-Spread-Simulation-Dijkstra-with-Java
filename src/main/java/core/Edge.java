@@ -1,3 +1,5 @@
+package core;
+
 public class Edge {
     String node;
     int weight;

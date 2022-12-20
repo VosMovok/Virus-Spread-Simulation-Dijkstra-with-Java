@@ -1,3 +1,5 @@
+package core;
+
 public class Node {
     int val;
     int priority;
