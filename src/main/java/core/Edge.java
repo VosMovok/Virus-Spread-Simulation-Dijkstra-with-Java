@@ -1,11 +1,10 @@
 package core;
 
-public class Edge {
-    String node;
-    int weight;
-
-    public Edge(String node, int weight) {
-        this.node = node;
+public class Edge{
+    public final Vertex target;
+    public final double weight;
+    public Edge(Vertex target, double weight){
+        this.target = target;
         this.weight = weight;
     }
 }

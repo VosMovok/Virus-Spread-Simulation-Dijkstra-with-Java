@@ -66,11 +66,11 @@ class ConvertDataForPlotting {
 
             // Adding edges
             Edge[] edges = data.net.get(String.valueOf(letter));
-            for (int j = 0; j < edges.length; j++) {
+            for (Edge edge : edges) {
                 converted.links[linkIndex] = new Link();
                 converted.links[linkIndex].source = String.valueOf(letter);
-                converted.links[linkIndex].target = edges[j].node;
-                converted.links[linkIndex].weight = edges[j].weight;
+                converted.links[linkIndex].target = edge.node;
+                converted.links[linkIndex].weight = edge.weight;
                 linkIndex++;
             }
         }
