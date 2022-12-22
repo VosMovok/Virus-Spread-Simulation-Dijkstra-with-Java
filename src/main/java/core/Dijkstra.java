@@ -1,5 +1,7 @@
 package core;
 
+import util.PriorityQueue;
+
 import java.util.LinkedList;
 
 public class Dijkstra {
