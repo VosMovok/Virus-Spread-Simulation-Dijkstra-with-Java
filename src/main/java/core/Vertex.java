@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Vertex implements Comparable<Vertex>{
-    public final String name;
+    public String name;
     public ArrayList<Edge> neighbours;
     public LinkedList<Vertex> path;
     public double minDistance = Double.POSITIVE_INFINITY;
@@ -18,5 +18,9 @@ public class Vertex implements Comparable<Vertex>{
     }
     public String toString(){
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
