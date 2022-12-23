@@ -26,31 +26,4 @@ public class Import {
         fullNames.addAll(Arrays.asList(fullName));
         connections.addAll(Arrays.asList(connection));
     }
-
-    public class FullName {
-        private String FullName;
-
-        public String getFullName() {
-            return FullName;
-        }
-    }
-
-    public class Connection {
-        private String Source;
-        private String Destination;
-        private int Weight;
-
-
-        public String getSource() {
-            return Source;
-        }
-
-        public String getDestination() {
-            return Destination;
-        }
-
-        public int getWeight() {
-            return Weight;
-        }
-    }
 }

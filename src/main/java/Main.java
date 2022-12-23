@@ -2,8 +2,9 @@ import com.github.sh0nk.matplotlib4j.PythonExecutionException;
 import core.Dijkstra;
 import core.Graph;
 import core.Vertex;
-import helper.Import;
+import helper.*;
 import util.Matplotlib;
+import util.GraphVis;
 
 import java.io.IOException;
 import java.util.*;
@@ -16,32 +17,33 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         System.out.print("Create Random Data? (y/n) : ");
+        LinkedList<FullName> fullNames = new LinkedList<>();
+        LinkedList<Connection> connections = new LinkedList<>();
         if (scanner.next().charAt(0) == 'y') {
             int maxVertices = 100;
             int maxConnections = 6;
             int maxWeights = 5;
             graph = new Graph(maxVertices);
             Random rand = new Random(System.currentTimeMillis());
-
             for (int i = 0; i < maxVertices; i++) {
+                fullNames.add(new FullName(graph.getVertices().get(i).name));
                 int randConnections = rand.nextInt(0, maxConnections + 1);
                 for (int j = 0; j < randConnections; j++) {
                     int randWeight = rand.nextInt(1, maxWeights + 1);
                     int randDest = rand.nextInt(0, maxVertices);
                     boolean success = graph.addEdge(i, randDest, randWeight);
+                    connections.add(new Connection("v" + i, "v" + randDest, randWeight));
                     if (!success) j--;
                 }
             }
         } else {
             System.out.println("Okay! Importing JSON Data");
             Import imp = new Import();
-            LinkedList<Import.FullName> fullNames = new LinkedList<>();
-            LinkedList<Import.Connection> connections = new LinkedList<>();
             imp.json(fullNames, connections);
             graph = new Graph();
-            for (Import.FullName f : fullNames)
-                graph.addVertex(f.getFullName());
-            for (Import.Connection c : connections)
+            for (FullName f : fullNames)
+                graph.addVertex(f.getFullname());
+            for (Connection c : connections)
                 graph.addEdge(c.getSource(), c.getDestination(), c.getWeight());
         }
 
@@ -73,8 +75,10 @@ public class Main {
             System.out.println("Maximum Days to Infect All Reachable Nodes : " + Collections.max(maxDays.keySet()) + " Days");
 
         System.out.print("Show Graph Representation and Line Graph? (y/n) : ");
-        if (scanner.next().charAt(0) == 'y')
+        if (scanner.next().charAt(0) == 'y') {
+//            GraphVis.show(fullNames, connections);
             Matplotlib.dataToPlot(maxDays);
+        }
         else
             System.out.println("BYE!");
 

@@ -25,11 +25,11 @@ public class Matplotlib {
                 .add(keys, values)
                 .label("Days to Infected")
                 .color("b");
-        Interpolator.interpolate(keys, values);
-        plt.plot()
-                .add(keys, values)
-                .label("Days to Infected")
-                .color("r");
+//        Interpolator.interpolate(keys, values);
+//        plt.plot()
+//                .add(keys, values)
+//                .label("Days to Infected Interpolated")
+//                .color("r");
         plt.xlim(0, maxX);
         plt.ylim(0, maxY + 1);
         plt.xlabel("Days");
