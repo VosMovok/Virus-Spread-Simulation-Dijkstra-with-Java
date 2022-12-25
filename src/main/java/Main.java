@@ -76,7 +76,7 @@ public class Main {
 
         System.out.print("Show Graph Representation and Line Graph? (y/n) : ");
         if (scanner.next().charAt(0) == 'y') {
-//            GraphVis.show(fullNames, connections);
+            GraphVis.show(fullNames, connections);
             Matplotlib.dataToPlot(maxDays);
         }
         else

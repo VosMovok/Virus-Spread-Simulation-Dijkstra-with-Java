@@ -27,16 +27,10 @@ public class GraphVis {
         }
 
         // Add edges to the graph and set their weights
-
         for (Connection e : edges) {
-            WeightedEdge e1 = new WeightedEdge();
-            graph.addEdge(e.getSource(), e.getDestination(), e1);
-            graph.setEdgeWeight(e1, e.getWeight());
-
-            mxICell source = (mxICell) jgxAdapter.getVertexToCellMap().get(e.getSource());
-            mxICell target = (mxICell) jgxAdapter.getVertexToCellMap().get(e.getDestination());
-            jgxAdapter.addEdge(jgxAdapter.getDefaultParent(), source, target, e1, null);
-            jgxAdapter.getEdgeToCellMap().get(e1).setValue(e1.toString());
+            WeightedEdge edge = edgeSupplier.get();
+            graph.addEdge(e.getSource(), e.getDestination(), edge);
+            graph.setEdgeWeight(edge, e.getWeight());
         }
 
 
