@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Import {
-    public void json(LinkedList<FullName> fullNames, LinkedList<Connection> connections) throws IOException {
+    public static void json(LinkedList<FullName> fullNames, LinkedList<Connection> connections) throws IOException {
 
         String name = new String(Files.readAllBytes(Paths.get("data/name.json")));
         String conn = new String(Files.readAllBytes(Paths.get("data/connection.json")));

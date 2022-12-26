@@ -12,7 +12,6 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] arg) throws PythonExecutionException, IOException {
-        // Create a new graph.
         Graph graph;
 
         Scanner scanner = new Scanner(System.in);
@@ -20,8 +19,8 @@ public class Main {
         LinkedList<FullName> fullNames = new LinkedList<>();
         LinkedList<Connection> connections = new LinkedList<>();
         if (scanner.next().charAt(0) == 'y') {
-            int maxVertices = 100;
-            int maxConnections = 6;
+            int maxVertices = 1000;
+            int maxConnections = 3;
             int maxWeights = 5;
             graph = new Graph(maxVertices);
             Random rand = new Random(System.currentTimeMillis());
@@ -36,10 +35,11 @@ public class Main {
                     if (!success) j--;
                 }
             }
+            Cleaner.duplicate(connections);
         } else {
             System.out.println("Okay! Importing JSON Data");
-            Import imp = new Import();
-            imp.json(fullNames, connections);
+            Import.json(fullNames, connections);
+            Cleaner.duplicate(connections);
             graph = new Graph();
             for (FullName f : fullNames)
                 graph.addVertex(f.getFullname());
@@ -64,22 +64,21 @@ public class Main {
         }
 
         if (Collections.max(maxDays.keySet()) == Double.POSITIVE_INFINITY)
-            System.out.println("Maximum Days to Infect All Nodes : " + Double.POSITIVE_INFINITY + " Days");
+            System.out.println("Predicted Days to Infect All Nodes : " + Double.POSITIVE_INFINITY + " Days");
         else
-            System.out.println("Maximum Days to Infect All Nodes : " + Collections.max(maxDays.keySet()) + " Days");
+            System.out.println("Predicted Days to Infect All Nodes : " + Collections.max(maxDays.keySet()) + " Days");
 
         maxDays.remove(Double.POSITIVE_INFINITY);
         if (Collections.max(maxDays.keySet()) == 0.0)
-            System.out.println("Maximum Days to Infect All Reachable Nodes : " + Double.POSITIVE_INFINITY + " Days");
+            System.out.println("Predicted Days to Infect All Reachable Nodes : " + Double.POSITIVE_INFINITY + " Days");
         else
-            System.out.println("Maximum Days to Infect All Reachable Nodes : " + Collections.max(maxDays.keySet()) + " Days");
+            System.out.println("Predicted Days to Infect All Reachable Nodes : " + Collections.max(maxDays.keySet()) + " Days");
 
         System.out.print("Show Graph Representation and Line Graph? (y/n) : ");
         if (scanner.next().charAt(0) == 'y') {
-            GraphVis.show(fullNames, connections);
+//            GraphVis.show(fullNames, connections);
             Matplotlib.dataToPlot(maxDays);
-        }
-        else
+        } else
             System.out.println("BYE!");
 
     }
